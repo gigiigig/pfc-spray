@@ -1,4 +1,4 @@
-package com.example
+package org.proyectofincarrera
 
 import akka.actor.{ActorSystem, Props}
 import akka.io.IO
@@ -7,6 +7,9 @@ import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
 
+/**
+ * Created by Gneotux on 15/11/2014.
+ */
 object Boot extends App {
 
   // we need an ActorSystem to host our application in
