@@ -1,6 +1,8 @@
-## _spray_ Template Project
+## _pfc_ Project
 
-Using Spray-Template turning my old proyectofincarrera https://github.com/Gneotux/ProyectoFinCarrera into scala :D
+[![Build Status](https://travis-ci.org/spray/spray.png?branch=master)](https://travis-ci.org/Gneotux/pfc-spray)
+
+Using Spray turning my old _proyectofincarrera_ https://github.com/Gneotux/ProyectoFinCarrera into scala :D
 
 Follow these steps to get started:
 
