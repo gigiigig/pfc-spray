@@ -1,10 +1,9 @@
-package com.example
+package org.proyectofincarrera
 
-import org.proyectofincarrera.MyService
 import org.specs2.mutable.Specification
-import spray.testkit.Specs2RouteTest
+import spray.http.StatusCodes._
 import spray.http._
-import StatusCodes._
+import spray.testkit.Specs2RouteTest
 
 class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
   def actorRefFactory = system
@@ -27,6 +26,12 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
       Put() ~> sealRoute(myRoute) ~> check {
         status === MethodNotAllowed
         responseAs[String] === "HTTP method not allowed, supported methods: GET"
+      }
+    }
+
+    "return a greetings for GET requests to users path" in {
+      Get("/users/") ~> myRoute ~> check {
+        responseAs[String] must contain("USERS")
       }
     }
   }
