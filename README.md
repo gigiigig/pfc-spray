@@ -33,5 +33,6 @@ Follow these steps to get started:
 
         > re-stop
 
-8. Learn more at http://www.spray.io/
-
+8. Learn more at 
+http://www.spray.io/
+http://etorreborre.github.io/specs2/guide/org.specs2.guide.QuickStart.html#Quick+Start
