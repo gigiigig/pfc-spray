@@ -1,7 +1,12 @@
 package org.proyectofincarrera
 
+import org.proyectofincarrera.model.User
 import spray.http.MediaTypes._
 import spray.routing.HttpService
+import spray.httpx.marshalling.Marshaller
+import spray.httpx.SprayJsonSupport._
+import spray.json.DefaultJsonProtocol._
+
 
 /**
  * Created by Gneotux on 15/11/2014.
@@ -25,14 +30,8 @@ trait MyService extends HttpService {
     } ~
     path("users" /) {
       get {
-        respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
-          complete {
-            <html>
-              <body>
-                <h1>USERS!</h1>
-              </body>
-            </html>
-          }
+        respondWithMediaType(`application/json`) {
+          complete(User(1, "test@mail.com", Option("Giancarlo"), Option("Muñoz"), Option("Reinoso")))
         }
       }
     }

@@ -1,8 +1,9 @@
 package org.proyectofincarrera
 
+import org.proyectofincarrera.model.User
 import org.specs2.mutable.Specification
 import spray.http.StatusCodes._
-import spray.http._
+import spray.httpx.SprayJsonSupport._
 import spray.testkit.Specs2RouteTest
 
 class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
@@ -29,9 +30,9 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
       }
     }
 
-    "return a greetings for GET requests to users path" in {
+    "return a user for GET requests to users path" in {
       Get("/users/") ~> myRoute ~> check {
-        responseAs[String] must contain("USERS")
+        responseAs[User] === User(1, "test@mail.com", Option("Giancarlo"), Option("Muñoz"), Option("Reinoso"))
       }
     }
   }
