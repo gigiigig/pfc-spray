@@ -1,5 +1,6 @@
 package org.proyectofincarrera.service
 
+import org.proyectofincarrera.service.impl.UserServiceImpl
 import org.specs2.mutable.Specification
 import org.proyectofincarrera.model.User
 
@@ -8,14 +9,11 @@ import org.proyectofincarrera.model.User
  */
 class UserServiceSpec extends Specification {
 
-  val service = UserService()
+  val service = new UserServiceImpl()
 
   "list" should{
     "be some list of users" in {
-
       service.list() must beSome
-
-
     }
   }
 

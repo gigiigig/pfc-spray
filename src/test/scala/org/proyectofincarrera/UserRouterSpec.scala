@@ -1,14 +1,18 @@
 package org.proyectofincarrera
 
 import org.proyectofincarrera.model.User
+import org.proyectofincarrera.service.UserService
+import org.proyectofincarrera.service.impl.UserServiceImpl
 import org.specs2.mutable.Specification
 import spray.http.StatusCodes._
 import spray.httpx.SprayJsonSupport._
 import spray.testkit.Specs2RouteTest
 
-class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
+class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter {
+
   def actorRefFactory = system
-  
+  val userService = new UserServiceImpl()
+
   "MyService" should {
 
     "return a greeting for GET requests to the root path" in {
@@ -30,9 +34,9 @@ class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
       }
     }
 
-    "return a user for GET requests to users path" in {
+    "return a list of users for GET requests to users path" in {
       Get("/users/") ~> myRoute ~> check {
-        responseAs[User] === User(1, "test@mail.com", Option("Giancarlo"), Option("Muñoz"), Option("Reinoso"))
+        responseAs[List[User]] === List(User(1, "giancarlo@mail.com"))
       }
     }
   }

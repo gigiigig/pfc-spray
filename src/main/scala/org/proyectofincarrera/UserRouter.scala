@@ -1,18 +1,19 @@
 package org.proyectofincarrera
 
-import org.proyectofincarrera.model.User
+import org.proyectofincarrera.service.UserService
 import spray.http.MediaTypes._
-import spray.routing.HttpService
-import spray.httpx.marshalling.Marshaller
 import spray.httpx.SprayJsonSupport._
 import spray.json.DefaultJsonProtocol._
+import spray.routing.HttpService
 
 
 /**
  * Created by Gneotux on 15/11/2014.
  */
 // this trait defines our service behavior independently from the service actor
-trait MyService extends HttpService {
+trait UserRouter extends HttpService {
+
+  val userService: UserService
 
   val myRoute =
     path("") {
@@ -31,8 +32,10 @@ trait MyService extends HttpService {
     path("users" /) {
       get {
         respondWithMediaType(`application/json`) {
-          complete(User(1, "test@mail.com", Option("Giancarlo"), Option("Muñoz"), Option("Reinoso")))
-        }
+          complete{
+            userService.list()
+          }
+       }
       }
     }
 
