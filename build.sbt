@@ -16,7 +16,11 @@ libraryDependencies ++= {
     "io.spray"            %%  "spray-testkit" % sprayV  % "test",
     "com.typesafe.akka"   %%  "akka-actor"    % akkaV,
     "com.typesafe.akka"   %%  "akka-testkit"  % akkaV   % "test",
-    "org.specs2"          %%  "specs2-core"   % "2.3.11" % "test"
+    "org.specs2" %% "specs2-core" % "2.3.11" % "test",
+    "com.typesafe.slick" %% "slick" % "2.1.0",
+    "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
+    "mysql" % "mysql-connector-java" % "5.1.12",
+    "org.hsqldb" % "hsqldb" % "2.3.2"
   )
 }
 
