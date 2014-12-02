@@ -36,3 +36,4 @@ Follow these steps to get started:
 8. Learn more at 
 http://www.spray.io/
 http://etorreborre.github.io/specs2/guide/org.specs2.guide.QuickStart.html#Quick+Start
+http://typesafe.com/activator/template/slick-multidb
