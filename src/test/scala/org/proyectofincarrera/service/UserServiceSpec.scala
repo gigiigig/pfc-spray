@@ -1,5 +1,6 @@
 package org.proyectofincarrera.service
 
+import org.proyectofincarrera.dao.impl.UserDaoSlick
 import org.scalatest.mock.MockitoSugar
 import org.specs2.mutable.Specification
 
@@ -8,7 +9,7 @@ import org.specs2.mutable.Specification
  */
 class UserServiceSpec extends Specification with MockitoSugar {
 
-//  val userDao = mock[UserDaoSlick]
+  val userDao = mock[UserDaoSlick]
 //
 //  trait userDaoSlickMock extends UserDaoSlick with DatabaseSupportSpec{
 //
