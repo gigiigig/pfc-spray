@@ -1,17 +1,19 @@
 package org.proyectofincarrera
 
+import org.mockito.Mockito.when
 import org.proyectofincarrera.model.User
 import org.proyectofincarrera.service.UserService
-import org.proyectofincarrera.service.impl.UserServiceImpl
+import org.scalatest.mock.MockitoSugar
 import org.specs2.mutable.Specification
 import spray.http.StatusCodes._
 import spray.httpx.SprayJsonSupport._
 import spray.testkit.Specs2RouteTest
 
-class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter {
+class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter with MockitoSugar {
 
   def actorRefFactory = system
-  val userService = new UserServiceImpl()
+
+  val userService = mock[UserService]
 
   "MyService" should {
 
@@ -35,6 +37,7 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
     }
 
     "return a list of users for GET requests to users path" in {
+      when(userService.list()).thenReturn(Some(List(User(1, "giancarlo@mail.com"))))
       Get("/users/") ~> myRoute ~> check {
         responseAs[List[User]] === List(User(1, "giancarlo@mail.com"))
       }

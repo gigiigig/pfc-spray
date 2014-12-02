@@ -1,20 +1,30 @@
 package org.proyectofincarrera.service
 
-import org.proyectofincarrera.service.impl.UserServiceImpl
+import org.scalatest.mock.MockitoSugar
 import org.specs2.mutable.Specification
-import org.proyectofincarrera.model.User
 
 /**
  * Created by Gneotux on 17/11/2014.
  */
-class UserServiceSpec extends Specification {
+class UserServiceSpec extends Specification with MockitoSugar {
 
-  val service = new UserServiceImpl()
+//  val userDao = mock[UserDaoSlick]
+//
+//  trait userDaoSlickMock extends UserDaoSlick with DatabaseSupportSpec{
+//
+//  }
+//
+//
+//
+//  object service extends UserServiceImpl with userDaoSlickMock{
+//    override val dao = userDao
+//  }
 
-  "list" should{
-    "be some list of users" in {
-      service.list() must beSome
-    }
-  }
+//  "list" should{
+//    "be some list of users" in {
+//      when(userDao.getAll).thenReturn(List())
+//      service.list() must beSome
+//    }
+//  }
 
 }

@@ -20,7 +20,7 @@ libraryDependencies ++= {
     "com.typesafe.slick" %% "slick" % "2.1.0",
     "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
     "mysql" % "mysql-connector-java" % "5.1.12",
-    "org.hsqldb" % "hsqldb" % "2.3.2"
+    "com.h2database" % "h2" % "1.4.182"
   )
 }
 

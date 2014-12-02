@@ -2,25 +2,16 @@ package org.proyectofincarrera.dao.impl
 
 import org.scalatest._
 
-import scala.slick.driver.MySQLDriver.simple._
-import scala.slick.jdbc.meta._
-import scala.slick.lifted.TableQuery
+import scala.slick.driver.H2Driver.simple._
+import scala.slick.jdbc.meta.MTable
 
 /**
  * Created by Gneotux on 18/11/2014.
  */
-class UserDaoSlickSpec extends FunSuite with BeforeAndAfter with UserDaoSlick {
-
-  val users = TableQuery[Users]
-
-  implicit var session: Session = _
+class UserDaoSlickSpec extends FunSuite with BeforeAndAfter with UserDaoSlick with DatabaseSupportSpec {
 
   def setupDatabase() = {
     users.ddl.create
-  }
-
-  before {
-    session = Database.forURL("jdbc:mysql://localhost:3306/test", driver = "com.mysql.jdbc.Driver").createSession()
   }
 
   test("Configuration should return correct configuration") {
@@ -30,12 +21,11 @@ class UserDaoSlickSpec extends FunSuite with BeforeAndAfter with UserDaoSlick {
     val size: Int = tables.size
     assert(size === 1)
     assert(tables.count(_.name.name.equalsIgnoreCase("users")) == 1)
-    //count must beEqualTo("users")
+//    count must beEqualTo("users")
 
   }
 
   after {
-    users.ddl.drop
     session.close()
   }
 }
