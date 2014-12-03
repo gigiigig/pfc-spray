@@ -4,7 +4,7 @@ import akka.actor.{ActorSystem, Props}
 import akka.io.IO
 import akka.pattern.ask
 import akka.util.Timeout
-import org.proyectofincarrera.dao.impl.UserDaoSlick
+import org.proyectofincarrera.dao.impl.{DatabaseSupport, UserDaoSlick}
 import org.proyectofincarrera.service.impl.UserServiceImpl
 import spray.can.Http
 
@@ -19,10 +19,19 @@ object Boot extends App {
 
   // we need an ActorSystem to host our application in
   implicit val system = ActorSystem("proyectoFinCarreraSpray")
+  val db = Database.forURL("jdbc:mysql://localhost:3306/test", driver = "com.mysql.jdbc.Driver")
+  val driverDb = MySQLDriver
 
-  object userService extends UserServiceImpl with UserDaoSlick{
-    val driver = MySQLDriver
-    val database = Database.forURL("jdbc:mysql://localhost:3306/test", driver = "com.mysql.jdbc.Driver")
+  object userDaoSlick extends UserDaoSlick with DatabaseSupport{
+    val driver = driverDb
+    val database = db
+  }
+
+  object userService extends UserServiceImpl  with DatabaseSupport{
+    val dao = userDaoSlick
+    val driver = driverDb
+    val database = db
+
   }
   // create and start our service actor
   val service = system.actorOf(Props(classOf[UserRouterActor],userService), "demo-service")

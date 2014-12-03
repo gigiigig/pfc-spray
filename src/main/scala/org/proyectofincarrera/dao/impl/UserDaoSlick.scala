@@ -1,5 +1,6 @@
 package org.proyectofincarrera.dao.impl
 
+import org.proyectofincarrera.model.User
 
 /**
  * Created by Gneotux on 18/11/2014.
@@ -7,21 +8,13 @@ package org.proyectofincarrera.dao.impl
 
 trait UserDaoSlick{ this: DatabaseSupport =>
 
-  case class UserProperties(
-    id: Int,
-    email: String,
-    name: Option[String] = None,
-    surname1: Option[String] = None,
-    surname2: Option[String] = None
-  )
-
   import driver.simple._
 
 
   class Users(tag: Tag)
-    extends Table[UserProperties](tag, "USERS") {
+    extends Table[User](tag, "USERS") {
 
-    def * = (id, email, name.?, surname1.?, surname2.?) <>(UserProperties.tupled, UserProperties.unapply)
+    def * = (id, email, name.?, surname1.?, surname2.?) <>((User.apply _).tupled, User.unapply)
 
     def id: Column[Int] = column[Int]("ID", O.PrimaryKey)
 
