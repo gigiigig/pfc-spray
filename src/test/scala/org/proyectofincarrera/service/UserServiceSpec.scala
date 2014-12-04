@@ -11,11 +11,11 @@ import org.specs2.mutable.Specification
  */
 class UserServiceSpec extends Specification with Mockito with DatabaseSupportSpec with UserServiceImpl {
 
-  val dao = mock[UserDaoSlick]
+  override val dao = mock[UserDaoSlick]
 
   "list" should{
     "be None" in {
-      list() must beNone
+      list() must beNull
     }
   }
 

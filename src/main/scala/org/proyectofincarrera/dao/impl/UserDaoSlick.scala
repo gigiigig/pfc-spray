@@ -6,7 +6,7 @@ import org.proyectofincarrera.model.User
  * Created by Gneotux on 18/11/2014.
  */
 
-trait UserDaoSlick{ this: DatabaseSupport =>
+trait UserDaoSlick{ this: DriverSupport =>
 
   import driver.simple._
 
@@ -32,7 +32,11 @@ trait UserDaoSlick{ this: DatabaseSupport =>
 
   def create(implicit session: Session) = users.ddl.create
 
-  def getAll(implicit session: Session) =  users.list
+  def getAll(implicit session: Session) =  Option(users.list)
+
+  def get(id: Int)(implicit session: Session): Option[User] = users.filter(_.id === id).firstOption
+
+  def add(user: User)(implicit session: Session) = users += user
 
 }
 
