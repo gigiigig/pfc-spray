@@ -29,7 +29,16 @@ trait UserRouter extends HttpService {
         }
       }
     } ~
-    path("users" /) {
+    path("users" / IntNumber) { userId =>
+      get {
+        respondWithMediaType(`application/json`) {
+          complete{
+            userService.find(userId)
+          }
+        }
+      }
+    } ~
+    path("users" / ) {
       get {
         respondWithMediaType(`application/json`) {
           complete{
@@ -38,5 +47,4 @@ trait UserRouter extends HttpService {
        }
       }
     }
-
 }

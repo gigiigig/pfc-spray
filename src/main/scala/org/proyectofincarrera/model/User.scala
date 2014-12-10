@@ -1,7 +1,5 @@
 package org.proyectofincarrera.model
 
-import akka.serialization.Serialization
-import spray.http.{HttpCharsets, HttpEntity}
 import spray.json.DefaultJsonProtocol
 
 /**

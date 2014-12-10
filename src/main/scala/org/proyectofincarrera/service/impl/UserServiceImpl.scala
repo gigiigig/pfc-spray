@@ -17,4 +17,7 @@ trait UserServiceImpl extends UserService with DatabaseSupport with DriverSuppor
     dao.getAll
   }
 
+  def find(id: Int): Option[User] = database withSession { implicit session: Session =>
+    dao.get(id)
+  }
 }

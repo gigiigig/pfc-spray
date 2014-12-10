@@ -36,7 +36,10 @@ trait UserDaoSlick{ this: DriverSupport =>
 
   def get(id: Int)(implicit session: Session): Option[User] = users.filter(_.id === id).firstOption
 
-  def add(user: User)(implicit session: Session) = users += user
+  def add(user: User)(implicit session: Session) = if ((users += user) == 1) true else false
+
+
+  def delete(id: Int)(implicit session: Session) = users.filter(_.id === id).delete
 
 }
 

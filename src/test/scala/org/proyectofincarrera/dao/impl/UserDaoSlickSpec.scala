@@ -87,4 +87,21 @@ class UserDaoSlickSpec extends Specification with UserDaoSlick with DriverSuppor
 
     }
   }
+
+  "delete" should {
+    "remove the user" in this {
+      createSchema()
+
+      val expected = Seq(
+        User(1, "user1@mail.com", Some("name1"), Some("surname1"), Some("surname1")),
+        User(2, "user2@mail.com", Some("name2"), Some("surname2"), Some("surname2"))
+      )
+
+      delete(3)
+
+      getAll must beEqualTo(Some(expected))
+
+    }
+  }
+
 }

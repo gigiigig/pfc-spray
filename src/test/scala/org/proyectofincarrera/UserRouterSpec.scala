@@ -1,5 +1,6 @@
 package org.proyectofincarrera
 
+import org.mockito.Mockito._
 import org.proyectofincarrera.model.User
 import org.proyectofincarrera.service.UserService
 import org.specs2.mock._
@@ -34,12 +35,26 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
         responseAs[String] === "HTTP method not allowed, supported methods: GET"
       }
     }
+  }
+
+
+  "MyService#users" should {
 
     "return a list of users for GET requests to users path" in {
-      userService.list() returns Some(List(User(1, "giancarlo@mail.com")))
+      when(userService.list()).thenReturn(Some(List(User(1, "giancarlo@mail.com"))))
+
       Get("/users/") ~> myRoute ~> check {
         responseAs[List[User]] === List(User(1, "giancarlo@mail.com"))
       }
     }
+
+//    "return a single user for GET requests to users path" in {
+//      when(userService.find(314)).thenReturn(Some(User(2, "giancarlo@mail.com")))
+//
+//      Get("/users/314") ~> myRoute ~> check {
+//        responseAs[User] === User(2, "giancarlo@mail.com")
+//      }
+//    }
+
   }
 }
