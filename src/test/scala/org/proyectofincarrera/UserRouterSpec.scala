@@ -40,21 +40,19 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
 
   "MyService#users" should {
 
+    when(userService.list()).thenReturn(Some(List(User(1, "giancarlo@mail.com"))))
     "return a list of users for GET requests to users path" in {
-      when(userService.list()).thenReturn(Some(List(User(1, "giancarlo@mail.com"))))
-
       Get("/users/") ~> myRoute ~> check {
         responseAs[List[User]] === List(User(1, "giancarlo@mail.com"))
       }
     }
 
-//    "return a single user for GET requests to users path" in {
-//      when(userService.find(314)).thenReturn(Some(User(2, "giancarlo@mail.com")))
-//
-//      Get("/users/314") ~> myRoute ~> check {
-//        responseAs[User] === User(2, "giancarlo@mail.com")
-//      }
-//    }
+    when(userService.find(314)).thenReturn(Some(User(2, "giancarlo@mail.com")))
+    "return a single user for GET requests to users path" in {
+      Get("/users/314") ~> myRoute ~> check {
+        responseAs[User] === User(2, "giancarlo@mail.com")
+      }
+    }
 
   }
 }
