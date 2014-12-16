@@ -60,9 +60,9 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
       }
     }
 
-    when(userService.add(User(-1,"giancarlo3@mail.com"))).thenReturn(User(3, "giancarlo3@mail.com"))
+    when(userService.add(User(-99,"giancarlo3@mail.com"))).thenReturn(User(3, "giancarlo3@mail.com"))
     "return the correct user for POST requests to users path" in {
-      Post("/users/", User(-1,"giancarlo3@mail.com")) ~> myRoute ~> check {
+      Post("/users/", User(-99,"giancarlo3@mail.com")) ~> myRoute ~> check {
         responseAs[User] === User(3, "giancarlo3@mail.com")
       }
     }
