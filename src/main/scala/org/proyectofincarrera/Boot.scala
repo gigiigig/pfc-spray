@@ -19,13 +19,11 @@ object  Boot extends App {
 
   // we need an ActorSystem to host our application in
   implicit val system = ActorSystem("proyectoFinCarreraSpray")
-  val db = Database.forURL("jdbc:mysql://localhost:3306/test", driver = "com.mysql.jdbc.Driver")
-  val driverDb = MySQLDriver
 
   object userService extends UserServiceImpl  with DatabaseSupport with UserDaoSlick with DriverSupport{
     override val dao = this
-    override val driver = driverDb
-    override val database = db
+    override val driver = MySQLDriver
+    override val database = Database.forURL("jdbc:mysql://localhost:3306/test", driver = "com.mysql.jdbc.Driver")
   }
   // create and start our service actor
   val service = system.actorOf(Props(classOf[UserRouterActor],userService), "demo-service")

@@ -25,7 +25,7 @@ class UserDaoSlickSpec extends Specification with UserDaoSlick with DriverSuppor
   }
 
   override def before()={
-    session = Database.forURL("jdbc:h2:mem:test1;MODE=MySQL;", driver = "org.h2.Driver").createSession()
+    session = Database.forURL("jdbc:h2:mem:test1;MODE=MySQL;mv_store=false;", driver = "org.h2.Driver").createSession()
   }
 
   override def after()={
@@ -52,7 +52,7 @@ class UserDaoSlickSpec extends Specification with UserDaoSlick with DriverSuppor
           User(2, "user2@mail.com", Some("name2"), Some("surname2"), Some("surname2")),
           User(3, "user3@mail.com", Some("name3"), Some("surname3"), Some("surname3"))
         )
-        getAll must beEqualTo(Some(expected))
+        getAll(session) must beEqualTo(Some(expected))
       }
 
   }

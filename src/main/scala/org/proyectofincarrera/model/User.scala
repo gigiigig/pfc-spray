@@ -6,7 +6,7 @@ import spray.json.DefaultJsonProtocol
  * Created by Gneotux on 16/11/2014.
  */
 case class User(
-  id: Int = -1,
+  id: Int,
   email: String,
   name: Option[String] = None,
   surname1: Option[String] = None,
