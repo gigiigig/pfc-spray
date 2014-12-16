@@ -74,16 +74,12 @@ class UserDaoSlickSpec extends Specification with UserDaoSlick with DriverSuppor
   "add" should {
     "add a new user to the DDBB" in this {
       createSchema()
-      val newUser = User(4, "user4@mail.com", Some("name4"), Some("surname4"), Some("surname4"))
-      val expected = Seq(
-        User(1, "user1@mail.com", Some("name1"), Some("surname1"), Some("surname1")),
-        User(2, "user2@mail.com", Some("name2"), Some("surname2"), Some("surname2")),
-        User(3, "user3@mail.com", Some("name3"), Some("surname3"), Some("surname3")),
-        User(4, "user4@mail.com", Some("name4"), Some("surname4"), Some("surname4"))
-      )
-      add(newUser)
+      val newUser = User(-1, "user4@mail.com", Some("name4"), Some("surname4"), Some("surname4"))
+      val expected = User(4, "user4@mail.com", Some("name4"), Some("surname4"), Some("surname4"))
 
-      getAll must beEqualTo(Some(expected))
+      val actual = add(newUser)
+
+      actual must beEqualTo(expected)
 
     }
   }

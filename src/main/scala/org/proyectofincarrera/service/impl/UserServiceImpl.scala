@@ -13,11 +13,19 @@ trait UserServiceImpl extends UserService with DatabaseSupport with DriverSuppor
 
   import driver.simple._
 
-  def list(): Option[List[User]] = database withSession { implicit session: Session =>
+  override def add(user: User): User = database withSession{ implicit session: Session =>
+    dao.add(user)
+  }
+
+  override def getAll(): Option[List[User]] = database withSession { implicit session: Session =>
     dao.getAll
   }
 
-  def find(id: Int): Option[User] = database withSession { implicit session: Session =>
+  override def get(id: Int): Option[User] = database withSession { implicit session: Session =>
     dao.get(id)
+  }
+
+  override def delete(id: Int) = database withDynSession{ implicit session: Session =>
+    dao.delete(id)
   }
 }

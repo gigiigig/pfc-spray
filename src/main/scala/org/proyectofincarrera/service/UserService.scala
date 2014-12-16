@@ -7,8 +7,12 @@ import org.proyectofincarrera.model.User
  */
 trait UserService {
 
-  def find(id: Int): Option[User]
+  def add(user: User): User
 
-  def list() : Option[List[User]]
+  def delete(id: Int)
+
+  def get(id: Int): Option[User]
+
+  def getAll() : Option[List[User]]
 
 }

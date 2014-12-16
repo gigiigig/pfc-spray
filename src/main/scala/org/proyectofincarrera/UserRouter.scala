@@ -1,5 +1,6 @@
 package org.proyectofincarrera
 
+import org.proyectofincarrera.model.User
 import org.proyectofincarrera.service.UserService
 import spray.http.MediaTypes._
 import spray.httpx.SprayJsonSupport._
@@ -14,6 +15,7 @@ import spray.routing.HttpService
 trait UserRouter extends HttpService {
 
   val userService: UserService
+
 
   val myRoute =
     path("") {
@@ -33,18 +35,36 @@ trait UserRouter extends HttpService {
       get {
         respondWithMediaType(`application/json`) {
           complete{
-            userService.find(userId)
+            userService.get(userId)
           }
         }
+      } ~
+      delete {
+      respondWithStatus(200) {
+        complete {
+          userService.delete(userId)
+          userId.toString
+        }
+      }
       }
     } ~
     path("users" / ) {
       get {
         respondWithMediaType(`application/json`) {
-          complete{
-            userService.list()
+          complete {
+            userService.getAll
           }
-       }
+        }
+      } ~
+      post {
+        entity(as[User]) { user =>
+          respondWithMediaType(`application/json`) {
+            complete {
+              userService.add(user)
+            }
+          }
+        }
       }
     }
+
 }

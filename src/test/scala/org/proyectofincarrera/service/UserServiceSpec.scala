@@ -15,7 +15,7 @@ class UserServiceSpec extends Specification with Mockito with DatabaseSupportSpe
 
   "list" should{
     "be None" in {
-      list() must beNull
+      getAll() must beNull
     }
   }
 

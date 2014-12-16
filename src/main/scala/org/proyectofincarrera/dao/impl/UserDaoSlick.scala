@@ -16,7 +16,7 @@ trait UserDaoSlick{ this: DriverSupport =>
 
     def * = (id, email, name.?, surname1.?, surname2.?) <>((User.apply _).tupled, User.unapply)
 
-    def id: Column[Int] = column[Int]("ID", O.PrimaryKey)
+    def id: Column[Int] = column[Int]("ID", O.PrimaryKey, O.AutoInc)
 
     def email: Column[String] = column[String]("EMAIL", O.NotNull)
 
@@ -36,7 +36,10 @@ trait UserDaoSlick{ this: DriverSupport =>
 
   def get(id: Int)(implicit session: Session): Option[User] = users.filter(_.id === id).firstOption
 
-  def add(user: User)(implicit session: Session) = if ((users += user) == 1) true else false
+  def add(user: User)(implicit session: Session) = {
+    val newId = (users returning users.map(_.id)) += user
+    user.copy(id = newId)
+  }
 
 
   def delete(id: Int)(implicit session: Session) = users.filter(_.id === id).delete
