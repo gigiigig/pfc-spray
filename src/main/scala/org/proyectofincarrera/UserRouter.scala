@@ -40,12 +40,12 @@ trait UserRouter extends HttpService {
         }
       } ~
       delete {
-      respondWithStatus(200) {
-        complete {
-          userService.delete(userId)
-          userId.toString
+        respondWithStatus(200) {
+          complete {
+            userService.delete(userId)
+            userId.toString
+          }
         }
-      }
       }
     } ~
     path("users" / ) {
