@@ -18,8 +18,6 @@ libraryDependencies ++= {
     "com.typesafe.akka"   %%  "akka-testkit"  % akkaV   % "test",
     "org.specs2" %% "specs2-core" % "2.3.11" % "test",
     "com.typesafe.slick" %% "slick" % "2.1.0",
-    "org.slf4j" % "slf4j-nop" % "1.7.7",
-    "org.slf4j" % "slf4j-api" % "1.7.7",
     "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
     "mysql" % "mysql-connector-java" % "5.1.34",
     "com.h2database" % "h2" % "1.4.182"
