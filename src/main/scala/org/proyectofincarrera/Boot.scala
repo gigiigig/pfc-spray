@@ -15,7 +15,7 @@ import scala.slick.jdbc.JdbcBackend.Database
 /**
  * Created by Gneotux on 15/11/2014.
  */
-object  Boot extends App {
+object Boot extends App {
 
   // we need an ActorSystem to host our application in
   implicit val system = ActorSystem("proyectoFinCarreraSpray")
