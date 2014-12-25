@@ -1,6 +1,7 @@
 ## _pfc_ Scala Project
 
 [![Build Status](https://travis-ci.org/spray/spray.png?branch=master)](https://travis-ci.org/Gneotux/pfc-spray)
+[![Coverage Status](https://img.shields.io/coveralls/Gneotux/pfc-spray.svg)](https://coveralls.io/r/Gneotux/pfc-spray?branch=master)
 
 Using Spray turning my old _proyectofincarrera_ (needs mysql) https://github.com/Gneotux/ProyectoFinCarrera into scala :D
 
