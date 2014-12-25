@@ -25,7 +25,7 @@ trait UserServiceImpl extends UserService with DatabaseSupport with DriverSuppor
     dao.get(id)
   }
 
-  def delete(id: Int) = database withDynSession{ implicit session: Session =>
+  def delete(id: Int) = database withSession{ implicit session: Session =>
     dao.delete(id)
   }
 }
