@@ -9,7 +9,7 @@ import org.proyectofincarrera.service.impl.UserServiceImpl
 import spray.can.Http
 
 import scala.concurrent.duration._
-import scala.slick.driver.MySQLDriver
+import scala.slick.driver.PostgresDriver
 import scala.slick.jdbc.JdbcBackend.Database
 
 /**
@@ -20,11 +20,14 @@ object Boot extends App {
   // we need an ActorSystem to host our application in
   implicit val system = ActorSystem("proyectoFinCarreraSpray")
 
+
+
   object userService extends UserServiceImpl  with DatabaseSupport with UserDaoSlick with DriverSupport{
     override val dao = this
-    override val driver = MySQLDriver
-    override val database = Database.forURL("jdbc:mysql://localhost:3306/test", driver = "com.mysql.jdbc.Driver")
+    override val driver = PostgresDriver
+    override val database = Database.forURL("jdbc:postgresql://localhost/test",user = "postgres", password = "password", driver = "org.postgresql.Driver")
   }
+
   // create and start our service actor
   val service = system.actorOf(Props(classOf[UserRouterActor],userService), "demo-service")
 

@@ -21,7 +21,7 @@ libraryDependencies ++= {
     "org.slf4j" % "slf4j-nop" % "1.7.7",
     "org.slf4j" % "slf4j-api" % "1.7.7",
     "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
-    "mysql" % "mysql-connector-java" % "5.1.34",
+    "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "com.h2database" % "h2" % "1.4.182"
   )
 }

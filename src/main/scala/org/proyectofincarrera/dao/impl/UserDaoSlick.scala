@@ -11,20 +11,15 @@ trait UserDaoSlick{ this: DriverSupport =>
   import driver.simple._
 
 
-  class Users(tag: Tag)
-    extends Table[User](tag, "USERS") {
+  class Users(tag: Tag) extends Table[User](tag, "users") {
+
+    def id: Column[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def email: Column[String] = column[String]("email", O.NotNull)
+    def name: Column[String] = column[String]("name", O.Nullable)
+    def surname1: Column[String] = column[String]("surname1", O.Nullable)
+    def surname2: Column[String] = column[String]("surname2", O.Nullable)
 
     def * = (id, email, name.?, surname1.?, surname2.?) <>((User.apply _).tupled, User.unapply)
-
-    def id: Column[Int] = column[Int]("ID", O.PrimaryKey, O.AutoInc)
-
-    def email: Column[String] = column[String]("EMAIL", O.NotNull)
-
-    def name: Column[String] = column[String]("NAME", O.Nullable)
-
-    def surname1: Column[String] = column[String]("SURNAMES1", O.Nullable)
-
-    def surname2: Column[String] = column[String]("SURNAMES2", O.Nullable)
 
   }
 
