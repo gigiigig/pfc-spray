@@ -23,7 +23,8 @@ libraryDependencies ++= {
     "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
     "com.typesafe" % "config" % "1.2.1",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
-    "com.h2database" % "h2" % "1.4.182"
+    "com.h2database" % "h2" % "1.4.182",
+    "com.gettyimages" %% "spray-swagger" % "0.5.0"
   )
 }
 

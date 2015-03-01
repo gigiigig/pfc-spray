@@ -1,44 +1,40 @@
 package org.proyectofincarrera
 
+import com.wordnik.swagger.annotations.{Api, ApiOperation}
 import org.proyectofincarrera.model.User
 import org.proyectofincarrera.service.UserService
 import spray.http.MediaTypes._
 import spray.httpx.SprayJsonSupport._
-import spray.json.DefaultJsonProtocol._
 import spray.routing.HttpService
+
 
 
 /**
  * Created by Gneotux on 15/11/2014.
  */
 // this trait defines our service behavior independently from the service actor
+@Api(value = "/users", description = "Operations for users.", consumes= "application/json",  produces = "application/json")
 trait UserRouter extends HttpService {
 
   val userService: UserService
 
+  val userOperations = readRoute ~ deleteRoute ~ readAllRoute ~ postRoute
 
-  val myRoute =
-    path("") {
-      get {
-        respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
-          complete {
-            <html>
-              <body>
-                <h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>
-              </body>
-            </html>
-          }
-        }
-      }
-    } ~
+
+  @ApiOperation(value = "get a user by id", httpMethod = "GET")
+  lazy val readRoute =
     path("users" / IntNumber) { userId =>
       get {
         respondWithMediaType(`application/json`) {
-          complete{
+          complete {
             userService.get(userId)
           }
         }
-      } ~
+      }
+    }
+
+  lazy val deleteRoute =
+    path("users" / IntNumber) { userId =>
       delete {
         respondWithStatus(200) {
           complete {
@@ -47,7 +43,9 @@ trait UserRouter extends HttpService {
           }
         }
       }
-    } ~
+    }
+
+  lazy val readAllRoute =
     path("users" / ) {
       get {
         respondWithMediaType(`application/json`) {
@@ -55,7 +53,11 @@ trait UserRouter extends HttpService {
             userService.getAll
           }
         }
-      } ~
+      }
+    }
+
+  lazy val postRoute =
+    path("users" / ) {
       post {
         entity(as[User]) { user =>
           respondWithMediaType(`application/json`) {

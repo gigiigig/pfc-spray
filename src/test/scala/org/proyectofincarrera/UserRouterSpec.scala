@@ -17,22 +17,22 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
 
   "MyService" should {
 
-    "return a greeting for GET requests to the root path" in {
-      Get() ~> myRoute ~> check {
-        responseAs[String] must contain("Say hello")
-      }
-    }
+//    "return a greeting for GET requests to the root path" in {
+//      Get() ~> userOperations ~> check {
+//        responseAs[String] must contain("Api pfc")
+//      }
+//    }
 
     "leave GET requests to other paths unhandled" in {
-      Get("/kermit") ~> myRoute ~> check {
+      Get("/kermit") ~> userOperations ~> check {
         handled must beFalse
       }
     }
 
     "return a MethodNotAllowed error for PUT requests to the root path" in {
-      Put() ~> sealRoute(myRoute) ~> check {
-        status === MethodNotAllowed
-        responseAs[String] === "HTTP method not allowed, supported methods: GET"
+      Put() ~> sealRoute(userOperations) ~> check {
+        status === NotFound
+        responseAs[String] === "The requested resource could not be found."
       }
     }
   }
@@ -42,27 +42,27 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
 
     when(userService.getAll()).thenReturn(Some(List(User(1, "giancarlo@mail.com"))))
     "return a list of users for GET requests to users path" in {
-      Get("/users/") ~> myRoute ~> check {
+      Get("/users/") ~> userOperations ~> check {
         responseAs[List[User]] === List(User(1, "giancarlo@mail.com"))
       }
     }
 
     when(userService.get(314)).thenReturn(Some(User(2, "giancarlo@mail.com")))
     "return a single user for GET requests to users path" in {
-      Get("/users/314") ~> myRoute ~> check {
+      Get("/users/314") ~> userOperations ~> check {
         responseAs[User] === User(2, "giancarlo@mail.com")
       }
     }
 
     "return the id for DELETE requests to users path" in {
-      Delete("/users/314") ~> myRoute ~> check {
+      Delete("/users/314") ~> userOperations ~> check {
         responseAs[String] === "314"
       }
     }
 
     when(userService.add(User(-99,"giancarlo3@mail.com"))).thenReturn(User(3, "giancarlo3@mail.com"))
     "return the correct user for POST requests to users path" in {
-      Post("/users/", User(-99,"giancarlo3@mail.com")) ~> myRoute ~> check {
+      Post("/users/", User(-99,"giancarlo3@mail.com")) ~> userOperations ~> check {
         responseAs[User] === User(3, "giancarlo3@mail.com")
       }
     }

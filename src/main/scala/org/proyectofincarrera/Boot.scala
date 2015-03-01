@@ -1,6 +1,6 @@
 package org.proyectofincarrera
 
-import akka.actor.{ActorSystem, Props}
+import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.io.IO
 import akka.pattern.ask
 import akka.util.Timeout
@@ -12,6 +12,7 @@ import spray.can.Http
 import scala.concurrent.duration._
 import scala.slick.driver.PostgresDriver
 import scala.slick.jdbc.JdbcBackend.Database
+
 
 /**
  * Created by Gneotux on 15/11/2014.
@@ -34,8 +35,9 @@ object Boot extends App {
     )
   }
 
+
   // create and start our service actor
-  val service = system.actorOf(Props(classOf[UserRouterActor],userService), app.userServiceName)
+  val service: ActorRef = system.actorOf(Props(classOf[RouterActor],userService), app.userServiceName)
 
   implicit val timeout = Timeout(5.seconds)
   // start a new HTTP server on port 8080 with our service actor as the handler
