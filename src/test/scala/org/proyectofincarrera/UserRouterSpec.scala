@@ -42,7 +42,7 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
 
     when(userService.getAll()).thenReturn(Some(List(User(1, "giancarlo@mail.com"))))
     "return a list of users for GET requests to users path" in {
-      Get("/users/") ~> userOperations ~> check {
+      Get("/users") ~> userOperations ~> check {
         responseAs[List[User]] === List(User(1, "giancarlo@mail.com"))
       }
     }
@@ -62,7 +62,7 @@ class UserRouterSpec extends Specification with Specs2RouteTest with UserRouter 
 
     when(userService.add(User(-99,"giancarlo3@mail.com"))).thenReturn(User(3, "giancarlo3@mail.com"))
     "return the correct user for POST requests to users path" in {
-      Post("/users/", User(-99,"giancarlo3@mail.com")) ~> userOperations ~> check {
+      Post("/users", User(-99,"giancarlo3@mail.com")) ~> userOperations ~> check {
         responseAs[User] === User(3, "giancarlo3@mail.com")
       }
     }
