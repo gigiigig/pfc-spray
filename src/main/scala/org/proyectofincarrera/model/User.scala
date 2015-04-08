@@ -23,8 +23,11 @@ case class User(
   surname1: Option[String] = None,
 
   @(ApiModelProperty @field)(value = "users's last surname")
-  surname2: Option[String] = None
+  surname2: Option[String] = None,
+
+  @(ApiModelProperty @field)(hidden = true)
+  passwordId: Option[Int] = None
 )
 object User extends DefaultJsonProtocol{
-  implicit val userFormat = jsonFormat5(User.apply)
+  implicit val userFormat = jsonFormat6(User.apply)
 }

@@ -1,4 +1,4 @@
-package org.proyectofincarrera
+package org.proyectofincarrera.router
 
 import com.wordnik.swagger.annotations._
 import org.proyectofincarrera.model.User
@@ -6,8 +6,6 @@ import org.proyectofincarrera.service.UserService
 import spray.http.MediaTypes._
 import spray.httpx.SprayJsonSupport._
 import spray.routing.HttpService
-
-
 
 /**
  * Created by Gneotux on 15/11/2014.

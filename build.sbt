@@ -24,7 +24,9 @@ libraryDependencies ++= {
     "com.typesafe" % "config" % "1.2.1",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "com.h2database" % "h2" % "1.4.182",
-    "com.gettyimages" %% "spray-swagger" % "0.5.0"
+    "com.gettyimages" %% "spray-swagger" % "0.5.0",
+    "com.github.t3hnar" %% "scala-bcrypt" % "2.4",
+    "org.mindrot" % "jbcrypt" % "0.3m"
   )
 }
 

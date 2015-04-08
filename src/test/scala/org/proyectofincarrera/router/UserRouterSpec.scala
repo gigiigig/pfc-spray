@@ -1,4 +1,4 @@
-package org.proyectofincarrera
+package org.proyectofincarrera.router
 
 import org.mockito.Mockito._
 import org.proyectofincarrera.model.User

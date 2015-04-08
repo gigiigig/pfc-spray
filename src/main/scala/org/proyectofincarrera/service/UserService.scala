@@ -1,6 +1,6 @@
 package org.proyectofincarrera.service
 
-import org.proyectofincarrera.model.User
+import org.proyectofincarrera.model.{User, UserPassword}
 
 /**
  * Created by Gneotux on 17/11/2014.
@@ -12,6 +12,8 @@ trait UserService {
   def delete(id: Int)
 
   def get(id: Int): Option[User]
+
+  def get(email: String): Option[(User, UserPassword)]
 
   def getAll() : Option[List[User]]
 

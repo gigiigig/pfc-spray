@@ -1,4 +1,4 @@
-package org.proyectofincarrera
+package org.proyectofincarrera.router
 
 import akka.actor.Actor
 import com.gettyimages.spray.swagger.SwaggerHttpService
