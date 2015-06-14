@@ -12,7 +12,7 @@ trait PasswordDaoSlick {
   class Passwords(tag: Tag) extends Table[UserPassword](tag, "passwords") {
     def id: Column[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def hashedPassword: Column[String] = column[String]("hashed_password", O.Nullable)
-    def salt: Column[String] = column[String]("salt")
+    def salt: Column[String] = column[String]("salt", O.Nullable)
 
     def * = (id, hashedPassword.?, salt) <>((UserPassword.apply _).tupled, UserPassword.unapply)
   }
@@ -23,10 +23,8 @@ trait PasswordDaoSlick {
 
   def get(id: Int)(implicit session: Session): Option[UserPassword] = passwords.filter(_.id === id).firstOption
 
-  def add(password: UserPassword)(implicit session: Session) = {
-    val newId = (passwords returning passwords.map(_.id)) += password
-    password.copy(id = newId)
-  }
+  def add(password: UserPassword)(implicit session: Session): Int = (passwords returning passwords.map(_.id)) += password
+
 }
 
 object PasswordDao extends PasswordDaoSlick

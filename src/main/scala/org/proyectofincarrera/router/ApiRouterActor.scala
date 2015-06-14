@@ -1,10 +1,12 @@
 package org.proyectofincarrera.router
 
-import akka.actor.Actor
+import akka.actor.{ActorLogging, Actor}
 import com.gettyimages.spray.swagger.SwaggerHttpService
 import com.wordnik.swagger.model.ApiInfo
+import org.proyectofincarrera.Authenticator
 import org.proyectofincarrera.service.UserService
 
+import scala.concurrent.ExecutionContext
 import scala.reflect.runtime.universe._
 
 
@@ -13,7 +15,7 @@ import scala.reflect.runtime.universe._
  */
 // we don't implement our route structure directly in the service actor because
 // we want to be able to test it independently, without having to spin up an actor
-class RouterActor(service: UserService) extends Actor with UserRouter {
+class ApiRouterActor(service: UserService) extends Actor with UserRouter with ActorLogging with Authenticator {
 
   override val userService = service
 

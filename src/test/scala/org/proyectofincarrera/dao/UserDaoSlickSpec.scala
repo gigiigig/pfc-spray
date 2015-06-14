@@ -17,7 +17,7 @@ class UserDaoSlickSpec extends SpecSupport with UserDaoSlick {
 
   "get" should {
     "return the user passing the id" in this {
-      val expected = Some(User(2, "user2@mail.com", Some("name2"), Some("surname2"), Some("surname2")))
+      val expected = Some(User(2, "user2@mail.com", Some("name2"), Some("surname2")))
 
       get(2) must beEqualTo(expected)
 
@@ -29,8 +29,8 @@ class UserDaoSlickSpec extends SpecSupport with UserDaoSlick {
 
   "add" should {
     "add a new user to the DDBB" in this {
-      val newUser = User(-1, "user4@mail.com", Some("name4"), Some("surname4"), Some("surname4"))
-      val expected = User(4, "user4@mail.com", Some("name4"), Some("surname4"), Some("surname4"))
+      val newUser = User(0, "user4@mail.com", Some("name4"), Some("surname4"))
+      val expected = User(4, "user4@mail.com", Some("name4"), Some("surname4"))
 
       val actual = add(newUser)
 
@@ -43,8 +43,8 @@ class UserDaoSlickSpec extends SpecSupport with UserDaoSlick {
     "remove the user" in this {
 
       val expected = Seq(
-        User(1, "user1@mail.com", Some("name1"), Some("surname1"), Some("surname1")),
-        User(2, "user2@mail.com", Some("name2"), Some("surname2"), Some("surname2"))
+        User(1, "user1@mail.com", Some("name1"), Some("surname1")),
+        User(2, "user2@mail.com", Some("name2"), Some("surname2"))
       )
 
       delete(3)

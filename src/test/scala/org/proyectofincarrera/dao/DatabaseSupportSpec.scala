@@ -13,9 +13,9 @@ object DatabaseSupportSpec {
     UserPassword(3, Some("WHATEVER3"), "")
   )
   lazy val users = Seq(
-    User(1, "user1@mail.com", Some("name1"), Some("surname1"), Some("surname1")),
-    User(2, "user2@mail.com", Some("name2"), Some("surname2"), Some("surname2")),
-    User(3, "user3@mail.com", Some("name3"), Some("surname3"), Some("surname3"))
+    User(1, "user1@mail.com", Some("name1"), Some("surname1")),
+    User(2, "user2@mail.com", Some("name2"), Some("surname2")),
+    User(3, "user3@mail.com", Some("name3"), Some("surname3"))
   )
 }
 

@@ -11,7 +11,9 @@ import scala.concurrent.{ExecutionContext, Future}
 /**
  * Created by gneotux on 20/03/15.
  */
-class Authenticator(userService: UserService) {
+trait Authenticator {
+
+  val userService: UserService
 
   def basicUserAuthenticator(implicit ec: ExecutionContext): AuthMagnet[AuthInfo] = {
     def validateUser(userPass: Option[UserPass]): Option[AuthInfo] = {
@@ -27,5 +29,3 @@ class Authenticator(userService: UserService) {
     BasicAuth(authenticator _, realm = "Private API")
   }
 }
-
-object Authenticator extends Authenticator(UserService)

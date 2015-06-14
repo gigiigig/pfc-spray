@@ -20,13 +20,12 @@ class PasswordDaoSlickSpec extends SpecSupport with PasswordDaoSlick {
 
   "add" should {
     "add a new password to the DDBB" in this {
-      val newPassword = UserPassword(-1, Some("hashedpassword4"))
+      val newPassword = UserPassword(0, Some("hashedpassword4"))
       val expected = UserPassword(4, Some("hashedpassword4"))
 
       val actual = add(newPassword)
 
-      actual.id must equalTo(expected.id)
-      actual.hashedPassword must equalTo(expected.hashedPassword)
+      actual must equalTo(expected.id)
     }
   }
 

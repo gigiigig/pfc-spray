@@ -14,11 +14,10 @@ trait UserDaoSlick{
     val id: Column[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
     val email: Column[String] = column[String]("email", O.NotNull)
     val name: Column[String] = column[String]("name", O.Nullable)
-    val surname1: Column[String] = column[String]("surname1", O.Nullable)
-    val surname2: Column[String] = column[String]("surname2", O.Nullable)
+    val surname: Column[String] = column[String]("surname", O.Nullable)
     val passwordId: Column[Option[Int]] = column[Option[Int]]("password_id")
 
-    def * = (id, email, name.?, surname1.?, surname2.?, passwordId) <>((User.apply _).tupled, User.unapply)
+    def * = (id, email, name.?, surname.?, passwordId) <>((User.apply _).tupled, User.unapply)
   }
 
   val users = TableQuery[Users]

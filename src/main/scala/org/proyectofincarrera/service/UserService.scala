@@ -1,13 +1,14 @@
 package org.proyectofincarrera.service
 
 import org.proyectofincarrera.model.{User, UserPassword}
+import org.proyectofincarrera.router.UserDto
 
 /**
  * Created by Gneotux on 17/11/2014.
  */
 trait UserService {
 
-  def add(user: User): User
+  def add(user: UserDto): User
 
   def delete(id: Int)
 
