@@ -7,23 +7,23 @@ import org.proyectofincarrera.utils.DatabaseConfig._
  * Created by gneotux on 10/03/15.
  */
 trait PasswordDaoSlick {
-  import profile.simple._
+  import profile.api._
 
   class Passwords(tag: Tag) extends Table[UserPassword](tag, "passwords") {
-    def id: Column[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def hashedPassword: Column[String] = column[String]("hashed_password", O.Nullable)
-    def salt: Column[String] = column[String]("salt", O.Nullable)
+    def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def hashedPassword: Rep[String] = column[String]("hashed_password")
+    def salt: Rep[String] = column[String]("salt")
 
     def * = (id, hashedPassword.?, salt) <>((UserPassword.apply _).tupled, UserPassword.unapply)
   }
 
   val passwords = TableQuery[Passwords]
 
-  def create(implicit session: Session) = passwords.ddl.create
+  def create = passwords.schema.create
 
-  def get(id: Int)(implicit session: Session): Option[UserPassword] = passwords.filter(_.id === id).firstOption
+  def get(id: Int) = passwords.filter(_.id === id)
 
-  def add(password: UserPassword)(implicit session: Session): Int = (passwords returning passwords.map(_.id)) += password
+  def add(password: UserPassword) = (passwords returning passwords.map(_.id)) += password
 
 }
 

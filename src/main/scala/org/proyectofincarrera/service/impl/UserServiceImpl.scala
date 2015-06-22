@@ -6,6 +6,8 @@ import org.proyectofincarrera.router.UserDto
 import org.proyectofincarrera.service.UserService
 import org.proyectofincarrera.utils.DatabaseConfig._
 
+import scala.concurrent.Future
+
 /**
  * Created by Gneotux on 18/11/2014.
  */
@@ -16,24 +18,24 @@ trait UserServiceImpl extends UserService{
 
   import profile.simple._
 
-  override def add(user: UserDto): User = db withSession{ implicit session: Session =>
+  override def add(user: UserDto): User = db {
     val newPasswordId = passwordDao.add(UserPassword newWithPassword user.password)
     userDao.add(populateUser(user).copy(passwordId = Some(newPasswordId)))
   }
 
-  override def getAll(): Option[List[User]] = db withSession { implicit session: Session =>
+  def getAll() = db.run {
     userDao.getAll
   }
 
-  override def get(id: Int): Option[User] = db withSession { implicit session: Session =>
+  override def get(id: Int) = db.run {
     userDao.get(id)
   }
 
-  override def get(email: String): Option[(User, UserPassword)] = db withSession { implicit session: Session =>
+  def get(email: String): Future[(User, UserPassword)] = db {
     userDao.get(email)
   }
 
-  override def delete(id: Int) = db withSession{ implicit session: Session =>
+  override def delete(id: Int) = db {
     userDao.delete(id)
   }
 

@@ -1,9 +1,9 @@
 package org.proyectofincarrera.utils
 
 import org.proyectofincarrera.utils.Config.dbConfig._
+import slick.driver.{H2Driver, JdbcProfile, PostgresDriver}
 
-import scala.slick.driver.{H2Driver, JdbcProfile, PostgresDriver}
-import scala.slick.jdbc.JdbcBackend._
+import slick.jdbc.JdbcBackend._
 
 /**
  * Created by gneotux on 08/04/15.
