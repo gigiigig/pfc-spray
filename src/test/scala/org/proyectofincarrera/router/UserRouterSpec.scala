@@ -1,9 +1,9 @@
 package org.proyectofincarrera.router
 
 import org.mockito.Mockito._
+import org.proyectofincarrera.service.UserService
 import org.proyectofincarrera.{AuthenticatorHelper, Authenticator}
 import org.proyectofincarrera.model.User
-import org.proyectofincarrera.service.UserService
 import org.specs2.mock._
 import org.specs2.mutable.Specification
 import spray.http.{Rendering, HttpHeader, BasicHttpCredentials}

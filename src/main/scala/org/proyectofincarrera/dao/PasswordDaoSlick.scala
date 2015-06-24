@@ -21,9 +21,9 @@ trait PasswordDaoSlick {
 
   def create = passwords.schema.create
 
-  def get(id: Int) = passwords.filter(_.id === id)
+  def get(id: Int): DBIO[UserPassword] = passwords.filter(_.id === id).result
 
-  def add(password: UserPassword) = (passwords returning passwords.map(_.id)) += password
+  def add(password: UserPassword): DBIO[Int] = (passwords returning passwords.map(p => Option(p.id))) += password
 
 }
 

@@ -5,7 +5,7 @@ import akka.io.IO
 import akka.pattern.ask
 import akka.util.Timeout
 import org.proyectofincarrera.router.ApiRouterActor
-import org.proyectofincarrera.service.impl.UserService
+import org.proyectofincarrera.service.UserService
 import org.proyectofincarrera.utils.Config._
 import spray.can.Http
 

@@ -27,19 +27,19 @@ trait UserDaoSlick{
 
   def create = users.schema.create
 
-  def getAll: DBIO[Seq[(Int, String, String, String, Option[Int])]] = users.result
+  def getAll: DBIO[List[User]] = users.result
 
 
   def get(id: Int): DBIO[User] = users.filter(_.id === id).result
 
-  def get(email: String) =
-    for {
+  def get(email: String): DBIO[(User, UserPassword)] =
+    (for {
       user <- users.filter(_.email === email)
       password <- PasswordDao.passwords.filter(_.id === user.id)
-    }yield (user, password)
+    }yield (user, password)).result
 
 
-  def add(user: User)(implicit session: Session) = {
+  def add(user: User): DBIO[User] = {
     (users returning users) += user
   }
 

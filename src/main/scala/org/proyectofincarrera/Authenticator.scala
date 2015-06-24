@@ -2,7 +2,6 @@ package org.proyectofincarrera
 
 import org.proyectofincarrera.model.AuthInfo
 import org.proyectofincarrera.service.UserService
-import org.proyectofincarrera.service.impl.UserService
 import spray.routing.authentication.{BasicAuth, UserPass}
 import spray.routing.directives.AuthMagnet
 
