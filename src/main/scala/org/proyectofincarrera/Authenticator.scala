@@ -1,6 +1,6 @@
 package org.proyectofincarrera
 
-import org.proyectofincarrera.model.AuthInfo
+import org.proyectofincarrera.model.{User, UserPassword, AuthInfo}
 import org.proyectofincarrera.service.UserService
 import spray.routing.authentication.{BasicAuth, UserPass}
 import spray.routing.directives.AuthMagnet
@@ -15,15 +15,19 @@ trait Authenticator {
   val userService: UserService
 
   def basicUserAuthenticator(implicit ec: ExecutionContext): AuthMagnet[AuthInfo] = {
-    def validateUser(userPass: Option[UserPass]): Option[AuthInfo] = {
-      for {
-        p <- userPass
-        (user, password) <- userService.get(p.user)
-        if password.passwordMatches(p.pass)
-      } yield AuthInfo(user)
+    def validateUser(userPass: Option[UserPass]): Future[Option[AuthInfo]] = {
+     userPass.fold[Future[Option[AuthInfo]]]{
+       Future.successful(None)
+     }{
+       userPass =>
+         // TODO Better take a look at Scalaz OptionT http://underscore.io/blog/posts/2013/12/20/scalaz-monad-transformers.html#fnref:scalaz-contrib
+         userService.get(userPass.user).map(_.map{
+           case tup : (User, UserPassword) if tup._2.passwordMatches(userPass.pass) => AuthInfo(tup._1)
+         })
+     }
     }
 
-    def authenticator(userPass: Option[UserPass]): Future[Option[AuthInfo]] = Future { validateUser(userPass) }
+    def authenticator(userPass: Option[UserPass]): Future[Option[AuthInfo]] = validateUser(userPass)
 
     BasicAuth(authenticator _, realm = "Private API")
   }

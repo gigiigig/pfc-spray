@@ -14,29 +14,29 @@ trait UserDaoSlick{
 
   class Users(tag: Tag) extends Table[User](tag, "users") {
 
-    val id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    val email: Rep[String] = column[String]("email")
-    val name: Rep[String] = column[String]("name")
-    val surname: Rep[String] = column[String]("surname")
-    val passwordId: Rep[Option[Int]] = column[Option[Int]]("password_id")
+    def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def email: Rep[String] = column[String]("email")
+    def name: Rep[String] = column[String]("name")
+    def surname: Rep[String] = column[String]("surname")
+    def passwordId: Rep[Option[Int]] = column[Option[Int]]("password_id")
 
-    def * : ProvenShape[(Int, String, String, String, Option[Int])] = (id, email, name, surname, passwordId)
+    def * = (id, email, name.?, surname.?, passwordId) <>((User.apply _).tupled, User.unapply)
   }
 
-  private val users = TableQuery[Users]
+  val users = TableQuery[Users]
 
   def create = users.schema.create
 
-  def getAll: DBIO[List[User]] = users.result
+  def getAll: DBIO[Seq[User]] = users.result
 
 
-  def get(id: Int): DBIO[User] = users.filter(_.id === id).result
+  def get(id: Int): DBIO[Option[User]] = users.filter(_.id === id).result.headOption
 
-  def get(email: String): DBIO[(User, UserPassword)] =
+  def get(email: String): DBIO[Option[(User, UserPassword)]] =
     (for {
       user <- users.filter(_.email === email)
       password <- PasswordDao.passwords.filter(_.id === user.id)
-    }yield (user, password)).result
+    }yield (user, password)).result.headOption
 
 
   def add(user: User): DBIO[User] = {

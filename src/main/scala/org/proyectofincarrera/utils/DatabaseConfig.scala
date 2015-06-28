@@ -2,6 +2,7 @@ package org.proyectofincarrera.utils
 
 import org.proyectofincarrera.utils.Config.dbConfig._
 import slick.driver.{H2Driver, JdbcProfile, PostgresDriver}
+import slick.backend.DatabasePublisher
 
 import slick.jdbc.JdbcBackend._
 

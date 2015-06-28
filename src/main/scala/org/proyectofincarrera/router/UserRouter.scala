@@ -9,7 +9,7 @@ import spray.httpx.SprayJsonSupport._
 import spray.routing.HttpService
 import org.proyectofincarrera.router.UserDto._
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * Created by Gneotux on 15/11/2014.
@@ -17,9 +17,6 @@ import scala.concurrent.ExecutionContext
 // this trait defines our service behavior independently from the service actor
 @Api(value = "/users", description = "Operations for users.", consumes= "application/json",  produces = "application/json")
 trait UserRouter extends HttpService { self: Authenticator =>
-
-  implicit val ec = ExecutionContext.Implicits.global
-
 
   val userService: UserService
 

@@ -30,7 +30,7 @@ trait UserService {
     userDao.get(id)
   }
 
-  def get(email: String): Future[(User, UserPassword)] = db.run {
+  def get(email: String): Future[Option[(User, UserPassword)]] = db.run {
     userDao.get(email)
   }
 

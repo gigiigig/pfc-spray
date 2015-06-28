@@ -1,6 +1,10 @@
 package org.proyectofincarrera.dao
 
-import org.proyectofincarrera.model.User
+import org.proyectofincarrera.model.{UserPassword, User}
+import org.proyectofincarrera.utils.DatabaseConfig._
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 /**
  * Created by Gneotux on 18/11/2014.
@@ -10,7 +14,8 @@ class UserDaoSlickSpec extends SpecSupport with UserDaoSlick {
   "getAll" should {
     "return the list of all users" in this {
         val expected = DatabaseSupportSpec.users
-        getAll must beEqualTo(Some(expected))
+        val actual: Seq[User] = Await.result(db.run(getAll), Duration.Inf)
+        actual must beEqualTo(expected)
       }
 
   }
@@ -19,11 +24,14 @@ class UserDaoSlickSpec extends SpecSupport with UserDaoSlick {
     "return the user passing the id" in this {
       val expected = Some(User(2, "user2@mail.com", Some("name2"), Some("surname2")))
 
-      get(2) must beEqualTo(expected)
+      val actual = Await.result(db.run(get(2)), Duration.Inf)
+
+      actual must beEqualTo(expected)
 
     }
     "return None when user not found" in this {
-      get(288) must beNone
+      val actual: Option[User] = Await.result(db.run(get(288)), Duration.Inf)
+      actual must beNone
     }
   }
 
